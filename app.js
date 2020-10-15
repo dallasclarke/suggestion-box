@@ -16,6 +16,9 @@ mongoose
     .then(() => console.log('MongoDB Connected!'))
     .catch((err) => console.log(`${err}`));
 
+    app.get('/', (req, res) => {
+        res.status(200).send('Working')
+    })
 
 
     app.listen(port, () => {
