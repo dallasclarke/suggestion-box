@@ -4,7 +4,7 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const port = process.env.PORT || 3000;
-
+const suggestionRoutes = require('./routes/suggestionRoutes');
 
 mongoose
     .connect(process.env.MONGO_URI, {
@@ -16,9 +16,10 @@ mongoose
     .then(() => console.log('MongoDB Connected!'))
     .catch((err) => console.log(`${err}`));
 
-    app.get('/', (req, res) => {
-        res.status(200).send('Working')
-    })
+    app.use(morgan('dev'));
+    app.use(express.json());
+    app.use(express.urlencoded({extended: false}));
+    app.use('/api/v1/suggestions', suggestionRoutes);
 
 
     app.listen(port, () => {
